@@ -74,7 +74,7 @@
 
       .green-rect {
         width: 100%;
-        height: 85%;
+        height: 70%;
         background-color: green;
         display: flex;
         justify-content: center;
@@ -134,37 +134,71 @@
         justify-content: center;
         align-items: center;
       }
+
+      a img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+
+      .btn_img-normal {
+        animation: fadeIn 1.9s ease-out forwards;
+      }
+
+      .btn_img-hovered {
+        display: none;
+        position: absolute;
+        opacity: 1;
+        transform: scale(1);
+        animation: none;
+      }
+
+      a:hover .btn_img-normal {
+        opacity: 0;
+      }
+
+      a:hover .btn_img-hovered {
+        display: block;
+        opacity: 1;
+      }
+
+      a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
     </style>
   </head>
 
   <body>
-  <!--
-    <main>
-      <img src="assets/dcsa_logo.svg" alt="DCSA Logo">
-    </main>
-    
-    <footer>
-      <a href="tel:+359896446709" class="contact-btn">📞 +359 89 644 6709</a>
-      <a href="mailto:vvladoh@gmail.com" class="contact-btn">📧 vvladoh@gmail.com</a>
-    </footer>
-  -->
-
     <div class="green-rect">
       <img src="assets/dcsa_logo.svg" alt="DCSA Logo">
     </div>
 
-  <div class="cyan-rect"></div>
+    <div class="cyan-rect">
+      <img src="assets/dcsa_text.svg" alt="DCSA text">
+    </div>
 
     <div class="red-rect">
       <div class="blue-rect">
         <div class="yellow-rect">
-          <img src="assets/dcsa_phone_button-cropped.svg" alt="DCSA phone">
+          <a href="tel:+359896446709">
+            <img src="assets/dcsa_phone_button.svg" alt="DCSA phone" class="btn_img-normal">
+            <img src="assets/dcsa_phone_button-hovered.svg" alt="DCSA phone hovered" class="btn_img-hovered">
+          </a>
         </div>
 
         <div class="lightgreen-rect"></div>
 
         <div class="purple-rect">
-          <img src="assets/dcsa_mail_button-cropped.svg" alt="DCSA email">
+          <a href="mailto:vvladoh@gmail.com">
+            <img src="assets/dcsa_mail_button.svg" alt="DCSA email" class="btn_img-normal">
+            <img src="assets/dcsa_mail_button-hovered.svg" alt="DCSA phone hovered" class="btn_img-hovered">
+          </a>
         </div>
       </div>
     </div>
