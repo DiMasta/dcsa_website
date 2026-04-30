@@ -1920,6 +1920,8 @@
         function buildGrid(level) {
           grid.style.gridTemplateColumns = `repeat(${level.cols}, 1fr)`;
           grid.style.gridTemplateRows = `repeat(${level.rows}, 1fr)`;
+          dragon.style.transition = "none";
+          dragon.style.opacity = "1";
           // Remove only cell elements, preserve the dragon
           [...grid.querySelectorAll(".game-cell")].forEach((c) => c.remove());
           for (let y = 0; y < level.rows; y++) {
@@ -2106,7 +2108,9 @@
             // Out of bounds = bumped
             if (nx < 0 || ny < 0 || nx >= level.cols || ny >= level.rows) {
               program.children[i].classList.add("is-bad");
-              showBanner("Удари се!", "lose", "Драконът излезе от полето.", "retry");
+              dragon.style.transition = "opacity 0.25s";
+              dragon.style.opacity = "0";
+              showBanner("Изгуби се!", "lose", "Драконът излезе от полето.", "retry");
               break;
             }
 
@@ -2132,7 +2136,7 @@
               const cellEl = getCellEl(nx, ny);
               cellEl.classList.add("is-success");
               await wait(TIMEOUT_MS);
-              showBanner("Браво!", "win", "Драконът хвана рибата!", "next");
+              showBanner("Браво!", "win", "Дракона ще си хапне!", "next");
               break;
             }
 
