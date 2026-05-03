@@ -76,6 +76,12 @@
         text-decoration: none;
       }
 
+      button,
+      a,
+      [role="button"] {
+        -webkit-tap-highlight-color: transparent;
+      }
+
       .container {
         width: 100%;
         max-width: var(--maxw);
@@ -975,14 +981,18 @@
         width: auto;
       }
 
-      .game-arrow-btn:hover:not(:disabled) {
-        border-color: var(--brand);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(225, 29, 46, 0.3);
+      @media (hover: hover) {
+        .game-arrow-btn:hover:not(:disabled) {
+          border-color: var(--brand);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(225, 29, 46, 0.3);
+        }
       }
 
       .game-arrow-btn:active:not(:disabled) {
         transform: scale(0.96);
+        border-color: var(--brand);
+        box-shadow: 0 8px 20px rgba(225, 29, 46, 0.3);
       }
 
       .game-arrow-btn:disabled {
