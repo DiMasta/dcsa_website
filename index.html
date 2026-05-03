@@ -996,13 +996,11 @@
       }
 
       .game-block.game-block--grow .game-program {
-        flex: 1;
-        max-height: none;
+        flex: 0 0 auto;
       }
 
       .game-program {
-        min-height: 56px;
-        max-height: 120px;
+        height: 120px;
         overflow-y: auto;
         background: rgba(0, 0, 0, 0.25);
         border: 1px dashed rgba(255, 255, 255, 0.15);
@@ -1354,7 +1352,7 @@
         }
         .game-block.game-block--grow .game-program {
           flex: 0 0 auto;
-          max-height: 120px;
+          height: 120px;
         }
       }
 
@@ -1415,8 +1413,7 @@
           flex: 1 1 100%;
         }
         .game-block.game-block--grow .game-program {
-          max-height: 70px;
-          min-height: 48px;
+          height: 60px;
         }
         .game-arrows {
           gap: 8px;
@@ -2118,6 +2115,8 @@
           await wait(120);
 
           for (let i = 0; i < instructions.length; i++) {
+            // Keep the currently-executing instruction visible in the scroll area
+            program.children[i].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
             const { dx, dy } = DIRS[instructions[i]];
             const nx = dragonPos.x + dx;
             const ny = dragonPos.y + dy;
