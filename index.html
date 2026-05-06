@@ -340,9 +340,11 @@
         box-shadow: 0 10px 24px rgba(225, 29, 46, 0.35);
       }
 
-      .btn--primary:hover {
-        background: var(--brand-2);
-        transform: translateY(-2px);
+      @media (hover: hover) and (pointer: fine) {
+        .btn--primary:hover {
+          background: var(--brand-2);
+          transform: translateY(-2px);
+        }
       }
 
       .btn--ghost {
@@ -351,9 +353,11 @@
         border-color: rgba(255, 255, 255, 0.18);
       }
 
-      .btn--ghost:hover {
-        background: rgba(255, 255, 255, 0.12);
-        transform: translateY(-2px);
+      @media (hover: hover) and (pointer: fine) {
+        .btn--ghost:hover {
+          background: rgba(255, 255, 255, 0.12);
+          transform: translateY(-2px);
+        }
       }
 
       .hero__stats {
@@ -1095,8 +1099,20 @@
         border: 1px solid rgba(255, 255, 255, 0.18);
       }
 
-      .game-reset:hover {
+      @media (hover: hover) and (pointer: fine) {
+        .game-reset:hover {
+          background: rgba(255, 255, 255, 0.08);
+        }
+      }
+
+      .game-go.is-pressed {
+        background: var(--brand-2);
+        transform: translateY(-2px);
+      }
+
+      .game-reset.is-pressed:not(:disabled) {
         background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-2px);
       }
 
       .game-reset:disabled,
@@ -2188,21 +2204,31 @@
           isRunning = false;
         }
 
+        function flashPress(btn) {
+          btn.classList.add("is-pressed");
+          clearTimeout(btn._pressTimeout);
+          btn._pressTimeout = setTimeout(
+            () => btn.classList.remove("is-pressed"),
+            250
+          );
+          btn.blur();
+        }
+
         // Bind events
         arrowBtns.forEach((btn) => {
           btn.addEventListener("click", () => {
             addInstruction(btn.dataset.dir);
-            btn.classList.add("is-pressed");
-            clearTimeout(btn._pressTimeout);
-            btn._pressTimeout = setTimeout(
-              () => btn.classList.remove("is-pressed"),
-              250
-            );
-            btn.blur();
+            flashPress(btn);
           });
         });
-        goBtn.addEventListener("click", runProgram);
-        resetBtn.addEventListener("click", resetLevel);
+        goBtn.addEventListener("click", () => {
+          runProgram();
+          flashPress(goBtn);
+        });
+        resetBtn.addEventListener("click", () => {
+          resetLevel();
+          flashPress(resetBtn);
+        });
 
         // Reposition dragon on window resize (percentage-based, but ensure stable)
         window.addEventListener("resize", () => positionDragon(false));
