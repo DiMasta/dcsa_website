@@ -981,12 +981,18 @@
         width: auto;
       }
 
-      @media (hover: hover) {
+      @media (hover: hover) and (pointer: fine) {
         .game-arrow-btn:hover:not(:disabled) {
           border-color: var(--brand);
           transform: translateY(-2px);
           box-shadow: 0 8px 20px rgba(225, 29, 46, 0.3);
         }
+      }
+
+      .game-arrow-btn.is-pressed:not(:disabled) {
+        border-color: var(--brand);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(225, 29, 46, 0.3);
       }
 
       .game-arrow-btn:active:not(:disabled) {
@@ -2016,6 +2022,7 @@
           banner.className = "game-banner";
           banner.innerHTML = "";
           banner.onclick = null;
+          setControlsDisabled(false);
         }
 
         function loadLevel(idx) {
@@ -2179,12 +2186,20 @@
           }
 
           isRunning = false;
-          setControlsDisabled(false);
         }
 
         // Bind events
         arrowBtns.forEach((btn) => {
-          btn.addEventListener("click", () => addInstruction(btn.dataset.dir));
+          btn.addEventListener("click", () => {
+            addInstruction(btn.dataset.dir);
+            btn.classList.add("is-pressed");
+            clearTimeout(btn._pressTimeout);
+            btn._pressTimeout = setTimeout(
+              () => btn.classList.remove("is-pressed"),
+              250
+            );
+            btn.blur();
+          });
         });
         goBtn.addEventListener("click", runProgram);
         resetBtn.addEventListener("click", resetLevel);
