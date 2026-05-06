@@ -1005,11 +1005,6 @@
         box-shadow: 0 8px 20px rgba(225, 29, 46, 0.3);
       }
 
-      .game-arrow-btn:disabled {
-        opacity: 0.4;
-        cursor: not-allowed;
-      }
-
       .game-block.game-block--grow {
         flex: 1;
         min-height: 0;
@@ -1119,6 +1114,9 @@
       .game-go:disabled,
       .game-arrow-btn:disabled {
         pointer-events: none;
+        opacity: 0.4;
+        cursor: not-allowed;
+        box-shadow: none;
       }
 
       .game-hint {
@@ -2016,6 +2014,7 @@
         function clearProgram() {
           instructions = [];
           program.innerHTML = '<span class="game-program-empty">Все още няма инструкции…</span>';
+          setControlsDisabled(false);
         }
 
         function addInstruction(dir) {
@@ -2032,6 +2031,7 @@
           tile.appendChild(img);
           program.appendChild(tile);
           program.scrollTop = program.scrollHeight;
+          setControlsDisabled(false);
         }
 
         function hideBanner() {
@@ -2120,9 +2120,10 @@
         }
 
         function setControlsDisabled(disabled) {
-          goBtn.disabled = disabled;
-          resetBtn.disabled = disabled;
           arrowBtns.forEach((b) => (b.disabled = disabled));
+          const empty = instructions.length === 0;
+          goBtn.disabled = disabled || empty;
+          resetBtn.disabled = disabled || empty;
         }
 
         const wait = (ms) => new Promise((r) => setTimeout(r, ms));
